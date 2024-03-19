@@ -9,3 +9,6 @@ exports.inicio = (req, res) => {
 exports.login = (req, res) => {
     res.status(200).render('login');
 };
+exports.register = (req, res) => {
+    res.status(200).render('register');
+};
