@@ -18,9 +18,25 @@
             <div class="card border-0 shadow my-5">
                 <div class="card-body p-5">
                     <h1 class="fw-light">Página principal</h1>
-                    <p class="lead">Hola esto es un registro</p>
+                    <p class="lead">Puedes registrarte aqui</p>
+                    <!-- Formulario de registro -->
+                    <form action="/login" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Gmail" class="form-label">Gmail</label>
+                            <input type="email" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </form>
+                    <!-- Fin del formulario de reegistro -->
                     <!-- Contenido de las cards de la página principal -->
-                    <a href="http://localhost:3000/login" class="btn btn-primary" role="button">¡Iniciar sesión!</a>
+                    <a href="http://localhost:3000/login" class="btn btn-primary" role="button">Registrarse</a>
                     <!-- Fin del contenido de las cards de la página principal -->
                 </div>  
             </div>
