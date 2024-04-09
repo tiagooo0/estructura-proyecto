@@ -24,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Agrego un enrutador compatible
 app.use('/', myRouter);
 
-// Importa el archivo CSS de React-Toastify
-require('react-toastify/dist/ReactToastify.css');
+
 
 module.exports = app;
