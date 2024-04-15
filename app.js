@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 //Middlewares
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 //Middleware para poder obtener data de los requests con BodyParser
 app.use(express.json());
