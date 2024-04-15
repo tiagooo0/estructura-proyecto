@@ -3,21 +3,11 @@ const mongoose = require("mongoose");
 
 //Creación del Schema Post
 const postSchema = new mongoose.Schema({
-    title: {
+    usuario: {
         type: String,
-        required: [true, "Un post debe tener un título"],
     },
-    description: {
+    contraseña: {
         type: String,
-        required: [true, "Un post debe tener una descripción"],
-    },
-    date: {
-        type: Date,
-        required: [true, "Un post debe tener una fecha"],
-    },
-    technologies: {
-        type: [String],
-        required: [true, "Un post debe contar con tecnologías"],
     },
 });
 
