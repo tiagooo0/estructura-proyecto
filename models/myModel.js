@@ -1,17 +1,18 @@
-//Modelo de ejemplo para alojar datos en una DB mongo
+// Importar Mongoose para interactuar con MongoDB
 const mongoose = require("mongoose");
 
-//Creación del Schema Post
+// Definir el esquema (Schema) para los datos a alojar en la base de datos
 const postSchema = new mongoose.Schema({
     usuario: {
-        type: String,
+        type: String, // Tipo de dato para el campo usuario: String
     },
     contraseña: {
-        type: String,
+        type: String, // Tipo de dato para el campo contraseña: String
     },
 });
 
-//Creación del modelo Post
+// Crear el modelo (Model) basado en el esquema definido
 const Post = mongoose.model("Post", postSchema);
 
+// Exportar el modelo para que pueda ser utilizado en otros archivos
 module.exports = Post;
