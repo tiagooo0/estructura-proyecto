@@ -11,9 +11,10 @@ exports.login = (req, res) => {
     res.status(200).render('login');
 };
 
+
 // Renderizar la página de registro
 exports.registerPage = (req, res) => {
-    res.status(200).render('register');
+    res.status(200).render('register', { errors: {} });
 };
 
 // Manejar el registro de usuarios
@@ -21,11 +22,21 @@ exports.register = async (req, res) => {
     try {
         console.log(req.body); // Imprimir los datos del formulario en la consola del servidor
 
-        const { usuario, contraseña } = req.body;
+        const { usuario, contraseña, edad } = req.body;
         
         // Verificar que los datos del formulario no sean undefined
-        if (!usuario || !contraseña) {
-            return res.status(400).send("Usuario y contraseña son requeridos");
+        if (!usuario || !contraseña || !edad) {
+            return res.status(400).send("Usuario, contraseña y edad son requeridos");
+        }
+
+        // Verificar que la edad esté en el rango permitido (0-99)
+        if (isNaN(edad) || edad < 0 || edad > 99) {
+            return res.status(400).send("La edad debe estar entre 0 y 99 años");
+        }
+
+        // Verificar que la contraseña tenga al menos 8 caracteres y contenga al menos una mayúscula
+        if (contraseña.length < 8 || !/[A-Z]/.test(contraseña)) {
+            return res.status(400).render('register', { errors: { password: "La contraseña debe tener al menos 8 caracteres y contener al menos una mayúscula" } });
         }
 
         // Generar el hash de la contraseña
@@ -34,14 +45,15 @@ exports.register = async (req, res) => {
         // Crear un nuevo documento con la contraseña hasheada
         const nuevoUsuario = new Post({
             usuario: usuario,
-            contraseña: hashedPassword
+            contraseña: hashedPassword,
+            edad: edad
         });
 
         // Guardar el nuevo usuario en la base de datos
         await nuevoUsuario.save();
 
-        // Redirigir o enviar una respuesta de éxito
-        res.status(200).send("Usuario registrado exitosamente");
+        // Redirigir al usuario a la página de inicio de sesión después de registrarse exitosamente
+        res.redirect('/login');
     } catch (error) {
         // Manejo de errores
         console.error("Error al registrar usuario:", error);

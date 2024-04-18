@@ -9,6 +9,9 @@ const postSchema = new mongoose.Schema({
     contraseña: {
         type: String, // Tipo de dato para el campo contraseña: String
     },
+    edad: {
+        type: Number, // Tipo de dato para el campo edad: Number
+    },
 });
 
 // Crear el modelo (Model) basado en el esquema definido

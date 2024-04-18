@@ -27,6 +27,13 @@
                     <div class="mb-3">
                         <label for="contraseña" class="form-label">Contraseña</label>
                         <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                        <% if (errors && errors.password) { %>
+                            <p class="text-danger"><%= errors.password %></p>
+                        <% } %>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edad" class="form-label">Edad</label>
+                        <input type="number" class="form-control" id="edad" name="edad" min="0" max="99" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                 </form>
