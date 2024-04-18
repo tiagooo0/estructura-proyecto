@@ -8,9 +8,12 @@ exports.inicio = (req, res) => {
 
 // Renderizar la página de inicio de sesión
 exports.login = (req, res) => {
-    res.status(200).render('login');
+    res.status(200).render('login', { error: null }); // Aquí pasas la variable error con un valor nulo
 };
-
+// Renderizar la página de usuario logeado
+exports.loggedUser = (req, res) => {
+    res.status(200).render('loggedUser', { username: req.session.user.usuario });
+};
 
 // Renderizar la página de registro
 exports.registerPage = (req, res) => {
@@ -58,5 +61,36 @@ exports.register = async (req, res) => {
         // Manejo de errores
         console.error("Error al registrar usuario:", error);
         res.status(500).send("Error al registrar usuario");
+    }
+};
+
+// Manejar la autenticación de usuarios
+exports.authenticate = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // Buscar el usuario en la base de datos
+        const user = await Post.findOne({ usuario: username });
+
+        // Si el usuario no existe, enviar mensaje de error
+        if (!user) {
+            return res.status(401).render('login', { error: 'Usuario o contraseña incorrectos' });
+        }
+
+        // Comparar la contraseña ingresada con la contraseña almacenada (hash)
+        const passwordMatch = await bcrypt.compare(password, user.contraseña);
+
+        // Si las contraseñas no coinciden, enviar mensaje de error
+        if (!passwordMatch) {
+            return res.status(401).render('login', { error: 'Usuario o contraseña incorrectos' });
+        }
+
+        // Si las credenciales son válidas, guardar el nombre de usuario en la sesión y redirigir
+        req.session.user = user;
+
+        res.redirect('/user');
+    } catch (error) {
+        console.error("Error al autenticar usuario:", error);
+        res.status(500).send("Error al autenticar usuario");
     }
 };

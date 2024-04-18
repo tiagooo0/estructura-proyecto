@@ -18,6 +18,11 @@
         <div class="card border-0 shadow my-5">
             <div class="card-body p-5">
                 <h1 class="fw-light">Página principal</h1>
+                <% if (error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
                 <p class="lead">Esto sería el formulario de inicio de sesión:</p>
                 <!-- Formulario de inicio de sesión -->
                 <form action="/login" method="POST">
@@ -41,3 +46,4 @@
     <%- include('fragments/js.ejs') %>
 </body>
 </html>
+ 
