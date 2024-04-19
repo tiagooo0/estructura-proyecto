@@ -3,7 +3,6 @@ const path = require('path');
 const morgan = require('morgan');
 const session = require('express-session'); // Importa el módulo de express-session
 const myRouter = require('./routes/myRouter');
-const { ToastContainer, toast } = require('react-toastify');
 
 const app = express();
 
