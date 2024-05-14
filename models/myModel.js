@@ -1,21 +1,11 @@
-// Importar Mongoose para interactuar con MongoDB
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-// Definir el esquema (Schema) para los datos a alojar en la base de datos
-const postSchema = new mongoose.Schema({
-    usuario: {
-        type: String, // Tipo de dato para el campo usuario: String
-    },
-    contraseña: {
-        type: String, // Tipo de dato para el campo contraseña: String
-    },
-    edad: {
-        type: Number, // Tipo de dato para el campo edad: Number
-    },
+// Definición del esquema de usuario
+const userSchema = new mongoose.Schema({
+    usuario: String, // Campo para almacenar el nombre de usuario
+    contraseña: String, // Campo para almacenar la contraseña 
+    edad: Number // Campo para almacenar la edad del usuario
 });
 
-// Crear el modelo (Model) basado en el esquema definido
-const Post = mongoose.model("Post", postSchema);
-
-// Exportar el modelo para que pueda ser utilizado en otros archivos
-module.exports = Post;
+// Exportar el modelo User basado en el esquema definido
+module.exports = mongoose.model('User', userSchema, 'users');

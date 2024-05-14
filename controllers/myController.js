@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const Post = require('../models/myModel');
+const User = require('../models/myModel');
 
 // Respuesta a una solicitud de tipo GET para la página de inicio
 exports.inicio = (req, res) => {
@@ -10,6 +10,7 @@ exports.inicio = (req, res) => {
 exports.login = (req, res) => {
     res.status(200).render('login', { error: null }); // Aquí pasas la variable error con un valor nulo
 };
+
 // Renderizar la página de usuario logeado
 exports.loggedUser = (req, res) => {
     res.status(200).render('loggedUser', { username: req.session.user.usuario });
@@ -46,7 +47,7 @@ exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(contraseña, 10); // El segundo argumento es el número de rondas de hash
 
         // Crear un nuevo documento con la contraseña hasheada
-        const nuevoUsuario = new Post({
+        const nuevoUsuario = new User({
             usuario: usuario,
             contraseña: hashedPassword,
             edad: edad
@@ -70,7 +71,7 @@ exports.authenticate = async (req, res) => {
         const { username, password } = req.body;
 
         // Buscar el usuario en la base de datos
-        const user = await Post.findOne({ usuario: username });
+        const user = await User.findOne({ usuario: username });
 
         // Si el usuario no existe, enviar mensaje de error
         if (!user) {
