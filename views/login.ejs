@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Incluímos los estilos css necesarios -->
-    <% include('fragments/css.ejs') %>
+    <%- include('fragments/css.ejs') %>
     <title>Iniciar sesión</title>
 </head>
 <body>
@@ -22,6 +22,11 @@
                 <label for="password" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
+            <!-- Mensaje de error -->
+            <% if (error) { %>
+                <p class="text-danger"><%= error %></p>
+            <% } %>
+            <!-- Fin del mensaje de error -->
             <!-- Botón de iniciar sesión con Google -->
             <div class="container my-5">
                 <div class="card social-block">
@@ -41,6 +46,6 @@
     </div>
     <!-- Fin del contenido principal -->
     <!-- Incluímos los scripts de javascript necesarios -->
-    <% include('fragments/js.ejs') %>
+    <%- include('fragments/js.ejs') %>
 </body>
 </html>
