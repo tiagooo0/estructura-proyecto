@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+const findOrCreate = require('mongoose-findorcreate');
 
 // Definición del esquema de usuario
 const userSchema = new mongoose.Schema({
-    usuario: String, // Campo para almacenar el nombre de usuario
-    contraseña: String, // Campo para almacenar la contraseña 
-    edad: Number // Campo para almacenar la edad del usuario
+    username: String, // Cambiado de 'usuario' a 'username'
+    contraseña: String,
+    edad: Number,
+    googleId: String,
+    secreto: String,
 });
 
-// Exportar el modelo User basado en el esquema definido
-module.exports = mongoose.model('User', userSchema, 'users');
+// Aplicar el plugin passport-local-mongoose al esquema de usuario
+userSchema.plugin(passportLocalMongoose, { usernameField: 'username' }); // Cambiado de 'usuario' a 'username'
+// Aplica el plugin findOrCreate al esquema de usuario
+userSchema.plugin(findOrCreate);
+
+// Exportar el modelo de usuario
+module.exports = mongoose.model('User', userSchema, 'user');

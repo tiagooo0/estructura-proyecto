@@ -5,45 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Incluímos los estilos css necesarios -->
-    <%- include('fragments/css.ejs') %>
-    <title>ExpressJsBase</title>
+    <% include('fragments/css.ejs') %>
+    <title>Iniciar sesión</title>
 </head>
 <body>
-    <!-- Navbar del sitio -->
-    
-    <!-- Fin del navbar del sitio -->
-
     <!-- Contenido principal -->
     <div class="container">
-        <div class="card border-0 shadow my-5">
-            <div class="card-body p-5">
-                <h1 class="fw-light">Página principal</h1>
-                <% if (error) { %>
-                    <div class="alert alert-danger" role="alert">
-                        <%= error %>
-                    </div>
-                <% } %>
-                <p class="lead">Esto sería el formulario de inicio de sesión:</p>
-                <!-- Formulario de inicio de sesión -->
-                <form action="/login" method="POST">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                </form>
-                <!-- Fin del formulario de inicio de sesión -->
-                <p class="mt-3">¿No tienes una cuenta? <a href="/registerPage">Regístrate aquí</a>.</p>
+        <!-- Formulario de inicio de sesión -->
+        <form action="/login" method="POST">
+            <!-- Campos de usuario y contraseña -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <!-- Botón de iniciar sesión con Google -->
+            <div class="container my-5">
+                <div class="card social-block">
+                    <div class="card-body" style="text-align: center !important">
+                        <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+                            <i class="fab fa-google"></i>
+                            Iniciar sesión con Google
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin del botón de iniciar sesión con Google -->
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        </form>
+        <!-- Fin del formulario de inicio de sesión -->
+        <p class="mt-3">¿No tienes una cuenta? <a href="/registerPage">Regístrate aquí</a>.</p>
     </div>
     <!-- Fin del contenido principal -->
     <!-- Incluímos los scripts de javascript necesarios -->
-    <%- include('fragments/js.ejs') %>
+    <% include('fragments/js.ejs') %>
 </body>
 </html>
- 

@@ -13,7 +13,7 @@ exports.login = (req, res) => {
 
 // Renderizar la página de usuario logeado
 exports.loggedUser = (req, res) => {
-    res.status(200).render('loggedUser', { username: req.session.user.usuario });
+    res.status(200).render('loggedUser', { username: req.session.user ? req.session.user.username : null }); // Cambiado de 'usuario' a 'username'
 };
 
 // Renderizar la página de registro
@@ -26,10 +26,10 @@ exports.register = async (req, res) => {
     try {
         console.log(req.body); // Imprimir los datos del formulario en la consola del servidor
 
-        const { usuario, contraseña, edad } = req.body;
+        const { username, contraseña, edad } = req.body; // Cambiado de 'usuario' a 'username'
         
         // Verificar que los datos del formulario no sean undefined
-        if (!usuario || !contraseña || !edad) {
+        if (!username || !contraseña || !edad) {
             return res.status(400).send("Usuario, contraseña y edad son requeridos");
         }
 
@@ -43,18 +43,23 @@ exports.register = async (req, res) => {
             return res.status(400).render('register', { errors: { password: "La contraseña debe tener al menos 8 caracteres y contener al menos una mayúscula" } });
         }
 
+        // Verificar si el usuario ya existe en la base de datos
+        const existingUser = await User.findOne({ username }); // Cambiado de 'usuario' a 'username'
+
+        // Si el usuario ya existe, enviar un mensaje de error
+        if (existingUser) {
+            return res.status(400).send("El nombre de usuario ya está en uso");
+        }
+
         // Generar el hash de la contraseña
         const hashedPassword = await bcrypt.hash(contraseña, 10); // El segundo argumento es el número de rondas de hash
 
         // Crear un nuevo documento con la contraseña hasheada
-        const nuevoUsuario = new User({
-            usuario: usuario,
+        const nuevoUsuario = await User.create({
+            username: username, // Cambiado de 'usuario' a 'username'
             contraseña: hashedPassword,
             edad: edad
         });
-
-        // Guardar el nuevo usuario en la base de datos
-        await nuevoUsuario.save();
 
         // Redirigir al usuario a la página de inicio de sesión después de registrarse exitosamente
         res.redirect('/login');
@@ -71,7 +76,7 @@ exports.authenticate = async (req, res) => {
         const { username, password } = req.body;
 
         // Buscar el usuario en la base de datos
-        const user = await User.findOne({ usuario: username });
+        const user = await User.findOne({ username }); // Cambiado de 'usuario' a 'username'
 
         // Si el usuario no existe, enviar mensaje de error
         if (!user) {

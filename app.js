@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const session = require('express-session'); // Importa el módulo de express-session
 const myRouter = require('./routes/myRouter');
+const session = require('express-session');
 
 const app = express();
 

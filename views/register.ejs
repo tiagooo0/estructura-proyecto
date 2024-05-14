@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Incluímos los estilos css necesarios -->
     <% include('fragments/css.ejs') %>
     <title>Registrarse</title>
 </head>
 <body>
-    <!-- Navbar del sitio -->
-    
-    <!-- Fin del navbar del sitio -->
-
     <!-- Contenido principal -->
     <div class="container">
-        <div class="card border-0 shadow my-5">
-            <div class="card-body p-5">
-                <h1 class="fw-light">Registrarse</h1>
-                <!-- Formulario de registro -->
-                <form action="/register" method="POST">
-                    <div class="mb-3">
-                        <label for="usuario" class="form-label">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="usuario" name="usuario" required>
+        <!-- Formulario de registro -->
+        <form action="/register" method="POST">
+            <!-- Campos de registro -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                <% if (errors && errors.password) { %>
+                    <p class="text-danger"><%= errors.password %></p>
+                <% } %>
+            </div>
+            <div class="mb-3">
+                <label for="edad" class="form-label">Edad</label>
+                <input type="number" class="form-control" id="edad" name="edad" min="0" max="99" required>
+            </div>
+            <!-- Botón de iniciar sesión con Google -->
+            <div class="container my-5">
+                <div class="card social-block">
+                    <div class="card-body" style="text-align: center !important">
+                        <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+                            <i class="fab fa-google"></i>
+                            Iniciar sesión con Google
+                        </a>
                     </div>
-                    <div class="mb-3">
-                        <label for="contraseña" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                        <% if (errors && errors.password) { %>
-                            <p class="text-danger"><%= errors.password %></p>
-                        <% } %>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edad" class="form-label">Edad</label>
-                        <input type="number" class="form-control" id="edad" name="edad" min="0" max="99" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
-                </form>
-                <!-- Fin del formulario de registro -->
-            </div>  
-        </div>
+                </div>
+            </div>
+            <!-- Fin del botón de iniciar sesión con Google -->
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+        <!-- Fin del formulario de registro -->
     </div>
     <!-- Fin del contenido principal -->
     <!-- Incluímos los scripts de javascript necesarios -->
