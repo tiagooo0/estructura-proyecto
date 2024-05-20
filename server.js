@@ -69,6 +69,7 @@ passport.use(new GoogleStrategy({
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
 
 // Ruta para iniciar sesión con Google
 app.get('/auth/google',
