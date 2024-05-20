@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require('express');
 const passport = require('passport');
+const path = require('path');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy; // Importa la estrategia local
@@ -68,7 +69,7 @@ passport.use(new GoogleStrategy({
 // Middleware para manejar la autenticación
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');``
 app.set('views', path.join(__dirname, '/views'));
 
 // Ruta para iniciar sesión con Google
