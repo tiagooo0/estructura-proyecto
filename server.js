@@ -57,7 +57,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/user" // Asegúrate de que la URL de devolución sea correcta
+    callbackURL: "/auth/google/user" // Asegúrate de que la URL de devolución sea correcta
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, {username: profile.displayName},function (err, user) {
