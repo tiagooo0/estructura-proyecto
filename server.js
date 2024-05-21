@@ -87,6 +87,11 @@ app.get('/auth/google/user',
 // Rutas de la aplicación
 app.use('/', require('./routes/myRouter'));
 
+// Middleware para manejar la página 404
+app.use((req, res, next) => {
+  res.status(404).render('404');
+});
+
 // Puerto
 const port = 3000;
 // Corremos el servidor en el puerto seleccionado
